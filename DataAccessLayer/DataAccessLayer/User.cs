@@ -1,22 +1,18 @@
-﻿namespace DataAccessLayer
+﻿namespace DataAccessLAyer
 {
     public class User
     {
-        public string name;
-        public string password;
-        public string role;
-        public int id;
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Password { get; set; }
+        public string Role { get; set; }
 
-        public User(
-            string name,
-            string password,
-            string role,
-            int id)
+        public User(int id, string name, string password, string role)
         {
-            this.name = name;
-            this.password = password;
-            this.role = role;
-            this.id = id;
+            Name = name;
+            Id = id;
+            Password = password;
+            Role = role;
         }
     }
 }

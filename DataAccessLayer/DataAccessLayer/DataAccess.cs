@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccessLayer
+namespace DataAccessLAyer
 {
     /// <summary>
     /// Version:
@@ -15,53 +14,58 @@ namespace DataAccessLayer
     /// Eric Cronje
     /// 
     /// Date:
-    /// 2020-05-08
+    /// 2020-05-09
     /// 
     /// Purpose:
     /// --------
     /// Separate the data operations from the main program
     ///
     /// </summary>
-    /// 
-    public class DataAccess
+    public class DataAccess : IDisposable
     {
-
-        private List<User> users;
+        private List<User> users = null;
 
         public DataAccess()
         {
-            users = new List<User> {
-                new User("Frank", "123", "admin", 1),
-                new User("Jen", "123", "sales", 2)
+            users = new List<User>()
+            {
+                new User(1, "Jeff", "123", "Sales")
             };
         }
-        
+
+        public void Dispose()
+        {
+            users = null;
+        }
+
         public User GetUser(int id)
         {
             try
             {
-                return users.Where(x => x.id == id)
-                                   .Select(x => x)
-                                   .FirstOrDefault();               
+                return users.Where(u => u.Id == id)
+                            .Select(u => u).SingleOrDefault();
             }
-            catch(Exception ex)
+            catch (Exception Ex)
             {
-                throw ex;
+
+                throw Ex;
             }
         }
 
         public bool AuthorizeUser(string userName, string password)
         {
+            try
+            {
+                User user = users.Where(u => u.Name == userName)
+                            .Where(v => v.Password == password)
+                            .Select(u => u).SingleOrDefault();
+                return user != null ? true : false;
+            }
+            catch (Exception Ex)
+            {
 
-            var user = users.Where(u => u.name == userName)
-                 .Where(u => u.password == password)
-                 .Select(v => v)
-                 .SingleOrDefault();
-
-            return user == null ? false : true; 
-
+                throw Ex;
+            }
         }
-
-
     }
 }
