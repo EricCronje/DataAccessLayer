@@ -1,6 +1,6 @@
 ﻿namespace DataAccessLayer
 {
-    public class Product
+    public abstract class Product
     {
         public int Id { get; set; }
         public string ProductName { get; set; }

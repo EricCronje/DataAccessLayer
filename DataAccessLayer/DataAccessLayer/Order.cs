@@ -1,6 +1,6 @@
 ﻿namespace DataAccessLayer
 {
-    public class Order
+    public abstract class Order
     {
         public int Id { get; set; }
         public int Quantity { get; set; }

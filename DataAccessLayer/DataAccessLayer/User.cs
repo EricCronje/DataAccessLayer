@@ -1,6 +1,8 @@
-﻿namespace DataAccessLayer
+﻿using System;
+
+namespace DataAccessLayer
 {
-    public class User
+    public abstract class User: IDisposable
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -13,6 +15,13 @@
             Id = id;
             Password = password;
             Role = role;
+        }
+
+        public void Dispose()
+        {
+            Name = null;
+            Password = null;
+            Role = null;
         }
     }
 }

@@ -39,58 +39,61 @@ namespace DataAccessLayer
     /// Checklist:
     /// 
     /// DataAccess class - resposibilities:
-    ///     1) get and dispose stub data
-    ///     2) provide a way to Get Users, Orders, Products and Authorize user
+    ///     1) provide a way to Get Users, Orders, Products and Authorize user data
     ///     
     /// Classes
-    /// 1.) Single resposibility - Yes
-    /// 2.) Open close princible - 
+    /// 1.) Single resposibility principle - Yes
+    /// 2.) Open Close principle - Yes
+    /// 3.) Liskov substitution principle - Yes 
+    /// 4.) Interface Segregation principle - Yes
+    /// 5.) Dependency Inversion principle - Yes
+    /// 
+    /// OOP:
+    /// 1.) Encapsulation - Yes
+    /// 2.) Abstraction - Yes
+    /// 3.) Polymorphism - Yes
+    /// 4.) Inheritance - Yes
+    /// 5.) Association - No
+    /// 6.) Agrigation - No
+    /// 7.) Compostion - Yes
     /// 
     /// </summary>
-    public class DataAccess : IDisposable
+    public class DataAccess : IDisposable , IOrders, IProducts, IUser
     {
 
-        #region Declare Datastore variables - orders, products, users
+        #region Declare Datastore variables - orders, products, users - stubData
         private List<Order> orders = null;
         private List<Product> products = null;
         private List<User> users = null;
+        
+        private DataSource dataSource = new DataSource();
+        
         #endregion
 
         #region Constructors - parameterless constructor - initialize stubs - orders, users, products
         public DataAccess()
         {
-            //Initialize the stub data.
-            GetOrdersStubData();
-            GetProductsStubData();
-            GetUsersStubData();
+            //Get the data from the datasource
+            GetOrdersDataFromDataSource();
+            GetProductsDataFromDataSource();
+            GetUsersDataFromDataSource();
         }
         #endregion
 
-        #region Get stub data - Orders, Products, Users
-        private void GetOrdersStubData()
+        #region Get data from datasource - Orders, Products, Users
+        private void GetOrdersDataFromDataSource()
         {
-            //intantiates a generic list of order making up orders.
-            orders = new List<Order>()
-            {
-                new Order(1,1,"Jack", Convert.ToDecimal(230.10), Convert.ToDecimal(232.10), Convert.ToDecimal(0.03))
-            };
+            orders = dataSource.Orders; 
         }
 
-        private void GetProductsStubData()
+        private void GetProductsDataFromDataSource()
         {
-            products = new List<Product>()
-            {
-                new Product(1, "Chair", Convert.ToDecimal(201.00))
-            };
+            products = dataSource.Products;
         }
 
-        private void GetUsersStubData()
+        private void GetUsersDataFromDataSource()
         {
-            users = new List<User>()
-            {
-                new User(1, "Jeff", "123", "Sales")
-            };
-
+            users = dataSource.Users;
         }
         #endregion
 
