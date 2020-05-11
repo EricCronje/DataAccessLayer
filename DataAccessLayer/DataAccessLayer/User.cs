@@ -1,4 +1,4 @@
-﻿namespace DataAccessLAyer
+﻿namespace DataAccessLayer
 {
     public class User
     {

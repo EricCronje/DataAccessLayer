@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using DataAccessLAyer;
+using DataAccessLayer;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DataAccessUnitTests
@@ -13,7 +13,7 @@ namespace DataAccessUnitTests
         {
             try
             {
-                using (var dataAccess = new DataAccessLAyer.DataAccess())
+                using (var dataAccess = new DataAccessLayer.DataAccess())
                 {
                     User user = dataAccess.GetUser(1);
                     Assert.AreEqual(user.Id, 1);
@@ -30,7 +30,7 @@ namespace DataAccessUnitTests
         {
             try
             {
-                using (var dataAccess = new DataAccessLAyer.DataAccess())
+                using (var dataAccess = new DataAccessLayer.DataAccess())
                 {
                     bool result = dataAccess.AuthorizeUser("Jeff", "123");
                     Assert.AreEqual(result, true);

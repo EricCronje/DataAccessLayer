@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccessLAyer
+namespace DataAccessLayer
 {
     /// <summary>
     /// Version:
@@ -36,19 +36,26 @@ namespace DataAccessLAyer
     /// -- products     -- GetProductsStubData
     /// -- orders       -- GetOrdersStubData
     /// 
+    /// Checklist:
     /// 
-    /// 
+    /// DataAccess class - resposibilities:
+    ///     1) get and dispose stub data
+    ///     2) provide a way to Get Users, Orders, Products and Authorize user
+    ///     
+    /// Classes
+    /// 1.) Single resposibility - Yes
     /// 
     /// </summary>
     public class DataAccess : IDisposable
     {
-        #region Datastore declarations
+
+        #region Declare Datastore variables - orders, products, users
         private List<Order> orders = null;
         private List<Product> products = null;
         private List<User> users = null;
         #endregion
 
-        #region Constructors
+        #region Constructors - parameterless constructor - initialize stubs - orders, users, products
         public DataAccess()
         {
             //Initialize the stub data.
@@ -58,7 +65,7 @@ namespace DataAccessLAyer
         }
         #endregion
 
-        #region Get stub data
+        #region Get stub data - Orders, Products, Users
         private void GetOrdersStubData()
         {
             //intantiates a generic list of order making up orders.
@@ -86,7 +93,7 @@ namespace DataAccessLAyer
         }
         #endregion
 
-        #region Main methods
+        #region Main methods - GetUser by id, GetProducts, GetOrders, AutorizeUser
         public User GetUser(int id)
         {
             try
@@ -128,7 +135,7 @@ namespace DataAccessLAyer
         }
         #endregion
 
-        #region Dispose
+        #region Dispose - implemented IDisposable method - dispose - Users, Products, Orders 
         public void Dispose()
         {
             users = null;
