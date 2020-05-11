@@ -44,6 +44,7 @@ namespace DataAccessLayer
     ///     
     /// Classes
     /// 1.) Single resposibility - Yes
+    /// 2.) Open close princible - 
     /// 
     /// </summary>
     public class DataAccess : IDisposable
@@ -145,4 +146,5 @@ namespace DataAccessLayer
         #endregion
 
     }
+
 }

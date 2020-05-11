@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using DataAccessLayer;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace DataAccessUnitTests
+namespace DataAccessLayer
 {
     [TestClass]
-    public class GetUser
+    public class Users
     {
         [TestMethod]
         public void GetUser_ValidUserID_ReturnUser()
@@ -20,6 +20,23 @@ namespace DataAccessUnitTests
                 }
             }
             catch(Exception EX)
+            {
+                throw EX;
+            }
+        }
+
+        [TestMethod]
+        public void GetUser_InValidUserID_ReturnNull()
+        {
+            try
+            {
+                using (var dataAccess = new DataAccessLayer.DataAccess())
+                {
+                    User user = dataAccess.GetUser(23);
+                    Assert.AreEqual(user, null);
+                }
+            }
+            catch (Exception EX)
             {
                 throw EX;
             }
@@ -42,10 +59,61 @@ namespace DataAccessUnitTests
             }
         }
 
+        [TestMethod]
+        public void AuthorizeUser_InValidUserAndPassword_ReturnFalse()
+        {
+            try
+            {
+                using (var dataAccess = new DataAccessLayer.DataAccess())
+                {
+                    bool result = dataAccess.AuthorizeUser("Jeffrey", "123456");
+                    Assert.AreEqual(result, false);
+                }
+            }
+            catch (Exception EX)
+            {
+                throw EX;
+            }
+        }
+
+        [TestMethod]
+        public void AuthorizeUser_InValidUserInformationNulls_ReturnFalse()
+        {
+            try
+            {
+                using (var dataAccess = new DataAccessLayer.DataAccess())
+                {
+                    bool result = dataAccess.AuthorizeUser(null, null);
+                    Assert.AreEqual(result, false);
+                }
+            }
+            catch (Exception EX)
+            {
+                throw EX;
+            }
+        }
+
+        [TestMethod]
+        public void AuthorizeUser_InValidInformationInvalidCharacters_ReturnFalse()
+        {
+            try
+            {
+                using (var dataAccess = new DataAccessLayer.DataAccess())
+                {
+                    bool result = dataAccess.AuthorizeUser("'~`!@#$%^&*()_+{[}]|\\/.,", "");
+                    Assert.AreEqual(result, false);
+                }
+            }
+            catch (Exception EX)
+            {
+                throw EX;
+            }
+        }
+
     }
 
     [TestClass]
-    public class GetProducts
+    public class Products
     {
         [TestMethod]
         public void GetProducts_ReturnProducts()
@@ -67,7 +135,7 @@ namespace DataAccessUnitTests
     }
 
     [TestClass]
-    public class GetOrders
+    public class Orders
     {
         [TestMethod]
         public void GetOrders_ReturnOrders()
