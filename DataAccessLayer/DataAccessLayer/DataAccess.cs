@@ -14,30 +14,79 @@ namespace DataAccessLAyer
     /// Eric Cronje
     /// 
     /// Date:
-    /// 2020-05-09
+    /// 2020-05-11
     /// 
     /// Purpose:
     /// --------
-    /// Separate the data operations from the main program
+    /// Separate the data operations from the main program.
     ///
+    /// Dummy DAL.
+    /// 
+    /// Contains:
+    /// ---------
+    /// 3 datastores
+    /// users           --  List of users.
+    /// products        --  List of products.
+    /// orders          --  List of history orders.
+    /// 
+    /// Default - parameterless constructor.
+    /// 
+    /// Initialize the 3 stubs in the constructor.
+    /// -- users        -- GetUsersStubData
+    /// -- products     -- GetProductsStubData
+    /// -- orders       -- GetOrdersStubData
+    /// 
+    /// 
+    /// 
+    /// 
     /// </summary>
     public class DataAccess : IDisposable
     {
+        #region Datastore declarations
+        private List<Order> orders = null;
+        private List<Product> products = null;
         private List<User> users = null;
+        #endregion
 
+        #region Constructors
         public DataAccess()
+        {
+            //Initialize the stub data.
+            GetOrdersStubData();
+            GetProductsStubData();
+            GetUsersStubData();
+        }
+        #endregion
+
+        #region Get stub data
+        private void GetOrdersStubData()
+        {
+            //intantiates a generic list of order making up orders.
+            orders = new List<Order>()
+            {
+                new Order(1,1,"Jack", Convert.ToDecimal(230.10), Convert.ToDecimal(232.10), Convert.ToDecimal(0.03))
+            };
+        }
+
+        private void GetProductsStubData()
+        {
+            products = new List<Product>()
+            {
+                new Product(1, "Chair", Convert.ToDecimal(201.00))
+            };
+        }
+
+        private void GetUsersStubData()
         {
             users = new List<User>()
             {
                 new User(1, "Jeff", "123", "Sales")
             };
-        }
 
-        public void Dispose()
-        {
-            users = null;
         }
+        #endregion
 
+        #region Main methods
         public User GetUser(int id)
         {
             try
@@ -67,5 +116,26 @@ namespace DataAccessLAyer
                 throw Ex;
             }
         }
+
+        public List<Product> GetProducts()
+        {
+            return products;
+        }
+
+        public List<Order> GetOrders()
+        {
+            return orders;
+        }
+        #endregion
+
+        #region Dispose
+        public void Dispose()
+        {
+            users = null;
+            products = null;
+            orders = null;
+        }
+        #endregion
+
     }
 }
